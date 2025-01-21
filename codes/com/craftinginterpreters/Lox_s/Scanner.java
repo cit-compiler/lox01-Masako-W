@@ -183,9 +183,15 @@ class Scanner {
    */
   private void string() {
     while (peek() != '"' && !isAtEnd()) {
-      if (peek() == '\n')
-        line++;
-      advance();
+      if (peek() == '\\' && peekNext() == '"') {
+        advance();
+        advance();
+      } else {
+        if (peek() == '\n')
+          line++;
+        advance();
+      }
+
     }
 
     if (isAtEnd()) {
